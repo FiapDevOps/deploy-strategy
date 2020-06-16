@@ -9,6 +9,13 @@ Usando o Kubernetes, podemoscriar um blue-green deployment com base no recurso s
 
 Importante: **Os modelos deste exemplo já foram disponibilizados no diretório kubernetes;**
 
+Para iniciar crie um namespace e configure como default para a sua aplicação:
+
+```sh
+kubectl create namespace <SEU-RM>
+kubectl config set-context --current --namespace=<SEU-RM>
+```
+
 1. Primeiro, crie uma configuração de service para atuar como roteador para nossas requisições e uma configuração de ingress que atuará como frontend permitindo o acesse externo (qualquer requisição HTTP com base no endereço de dns configurado) ao cluster;
 
 ```sh
@@ -53,7 +60,7 @@ A variável ${DEPLYOMENT} será responsável por configurar o seletor deployment
 DEPLOYMENT=blue \
 envsubst < kubernetes/service.yml | kubectl apply -f -
 
-API_DNS="apiSEURM.fiaplabs.com" \
+API_DNS="svc-SEURM.fiaplabs.com" \
 envsubst < kubernetes/ingress.yml | kubectl apply -f -
 ```
 
